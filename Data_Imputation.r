@@ -953,3 +953,63 @@ upset(
   line.size = 2.5
 )
 
+##################### Volcano Plots for DGE Analysis ###################
+library(ggplot2)
+library(dplyr)
+library(ggrepel)
+
+# Load data
+df <- read.csv("~/Desktop/Coursework/Missing Data/Results 10 Percent/DEResult_PCA_imputation_30_2024-06-24.csv", header = TRUE,row.names = 1)
+
+# Filter out rows where log2FoldChange or padj are not finite
+df_clean <- df %>%
+  filter(is.finite(log2FoldChange), is.finite(padj))
+
+# Update the expression column post-cleaning
+df_clean$Expression <- 'Neutral'  # Default category
+df_clean$Expression[df_clean$log2FoldChange >= 0.15 & df_clean$padj <= 0.05] <- 'UP'
+df_clean$Expression[df_clean$log2FoldChange <= -0.15 & df_clean$padj <= 0.05] <- 'DOWN'
+
+
+# Update the expression column post-cleaning
+df_clean$Expression <- 'Neutral'
+df_clean$Expression[df_clean$log2FoldChange >= 0.15 & df_clean$padj <= 0.05] <- 'UP'
+df_clean$Expression[df_clean$log2FoldChange <= -0.15 & df_clean$padj <= 0.05] <- 'DOWN'
+
+# Create a plot with adjusted limits
+p2 <- ggplot(df_clean, aes(x = log2FoldChange, y = -log(padj, base = 10), color = Expression)) +
+  geom_point(size = 3/5) +
+  geom_vline(xintercept = c(0.15, -0.15), linetype = "dotted") +
+  scale_color_manual(values = c("Neutral" = "gray50", "UP" = "firebrick3", "DOWN" = "dodgerblue3")) +
+  xlab("log2 Fold Change") +
+  ylab("-log10 Adjusted P-value") +
+  ggtitle("DGE Analysis on PCA Imputed 30% Dataset") +
+  guides(colour = guide_legend(override.aes = list(size = 5))) +
+  ylim(c(0, max(-log(df_clean$padj, base = 10), na.rm = TRUE) + 1))  # Adjust y-limit based on data
+
+# Select top 10 up-regulated and down-regulated genes
+top_genes <- bind_rows(
+  df_clean %>% 
+    filter(Expression == 'UP') %>%
+    arrange(padj, desc(abs(log2FoldChange))) %>%
+    head(10),
+  df_clean %>% 
+    filter(Expression == 'DOWN') %>%
+    arrange(padj, desc(abs(log2FoldChange))) %>%
+    head(10)
+)
+
+# Add labels to top genes in the volcano plot
+p3 <- p2 +
+  geom_label_repel(data = top_genes,
+                   aes(label = Name),  # Ensure 'symbol' column contains gene symbols
+                   size = 3,
+                   box.padding = 0.35,   
+                   point.padding = 0.5)
+
+# Print the plot
+print(p3)
+# Save the plot
+ggsave("Volcano_plot_PCA_30.png", plot = p3, width = 18, height = 15, dpi = 300, units = "cm")
+
+
