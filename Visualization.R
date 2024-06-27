@@ -82,10 +82,10 @@ d3_long$Identifiers3 <- column_labels[d3_long$Identifiers3]
 ggplot(d1_long, aes(x = Genome, y = Value, color = Identifiers)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
 
 #For 10% Dataset
-ggplot(d2_long, aes(x = Genome2, y = Value, color = Identifiers2)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
+ggplot(d2_long, aes(x = Genome2, y = Value2, color = Identifiers2)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
 
 #For 30% Dataset
-ggplot(d3_long, aes(x = Genome3, y = Value, color = Identifiers3)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
+ggplot(d3_long, aes(x = Genome3, y = Value3, color = Identifiers3)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
 
 #Conclusion : Here Genome is used to colour the points based on columns.
 
