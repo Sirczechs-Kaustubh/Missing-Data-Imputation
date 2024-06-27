@@ -90,19 +90,6 @@ ggplot(d3_long, aes(x = Genome3, y = Value3, color = Identifiers3)) + geom_point
 #Conclusion : Here Genome is used to colour the points based on columns.
 
 
-# Histogram with density line
-
-#For 5% Dataset
-ggplot(d1_long, aes(x = Genome)) + geom_histogram(aes(y = after_stat(density)), bins = 100, fill = "yellow", color = "black", alpha = 0.5) +  geom_density(color = "red", linewidth = 1) + ggtitle("Histogram of Values with Density Line of 5% Dataset") + xlab("Genome") + ylab("Density")
-
-#For 10% Dataset
-ggplot(d2_long, aes(x = Genome2)) + geom_histogram(aes(y = after_stat(density2)), bins = 100, fill = "yellow", color = "black", alpha = 0.5) +  geom_density(color = "red", linewidth = 1) + ggtitle("Histogram of Values with Density Line of 10% Dataset") + xlab("Genome") + ylab("Density")
-
-#For 30% Dataset
-ggplot(d3_long, aes(x = Genome3)) + geom_histogram(aes(y = after_stat(density3)), bins = 100, fill = "yellow", color = "black", alpha = 0.5) +  geom_density(color = "red", linewidth = 1) + ggtitle("Histogram of Values with Density Line of 30% Dataset") + xlab("Genome") + ylab("Density")
-
-
-
 # Heatmap to check Correlation between missing data
 library(pheatmap)
 
