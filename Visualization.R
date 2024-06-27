@@ -61,7 +61,7 @@ d2_long <- melt(as.matrix(d2))
 names(d2_long) <- c("Genome2", "Identifiers2", "Value2")
 
 d3_long <- melt(as.matrix(d3))
-names(d3_long) <- c("Genome3", "Identifiers3", "Value")
+names(d3_long) <- c("Genome3", "Identifiers3", "Value3")
 #transforming to long format helps with easy grouping and plotting of graphs
 
 
@@ -69,11 +69,11 @@ names(d3_long) <- c("Genome3", "Identifiers3", "Value")
 d1_long$Genome <- row_labels[d1_long$Genome]
 d1_long$Identifiers <- column_labels[d1_long$Identifiers]
 
-d2_long$Genome2 <- row_labels[d2_long$Genome2]
-d2_long$Identifiers2 <- column_labels[d2_long$Identifiers2]
+d2_long$Genome2 <- row_labels2[d2_long$Genome2]
+d2_long$Identifiers2 <- column_label3s[d2_long$Identifiers2]
 
-d3_long$Genome3 <- row_labels[d3_long$Genome3]
-d3_long$Identifiers3 <- column_labels[d3_long$Identifiers3]
+d3_long$Genome3 <- row_labels2[d3_long$Genome3]
+d3_long$Identifiers3 <- column_labels3[d3_long$Identifiers3]
 
 
 # Plotting using ggplot2
@@ -82,10 +82,10 @@ d3_long$Identifiers3 <- column_labels[d3_long$Identifiers3]
 ggplot(d1_long, aes(x = Genome, y = Value, color = Identifiers)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
 
 #For 10% Dataset
-ggplot(d2_long, aes(x = Genome2, y = Value2, color = Identifiers2)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
+ggplot(d2_long, aes(x = Genome2, y = Value2, color = Identifiers2)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels2)
 
 #For 30% Dataset
-ggplot(d3_long, aes(x = Genome3, y = Value3, color = Identifiers3)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels)
+ggplot(d3_long, aes(x = Genome3, y = Value3, color = Identifiers3)) + geom_point() +labs(x = "Genome", y = "Values", color = "Identifiers") +theme(axis.text.x = element_text(angle = 90, hjust = 1)) +scale_x_discrete(labels=row_labels3)
 
 #Conclusion : Here Genome is used to colour the points based on columns.
 
